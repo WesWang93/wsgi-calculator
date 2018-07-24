@@ -112,7 +112,7 @@ def application(environ, start_response):
             </head> \
             <body> \
             <p>Please enter function and arguments for calculation into path</p> \
-            <p>e.g. localhost:10000/add/5/3</p> \
+            <p>e.g. localhost:8080/add/5/3</p> \
             <br> \
             <p>Available functions:</p> \
             <p>add, subtract, multiply, divide</p> \
