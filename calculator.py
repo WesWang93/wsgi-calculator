@@ -104,11 +104,25 @@ def application(environ, start_response):
     try:
         path = environ.get('PATH_INFO', None)
         if path is None:
-            raise NameError
-        func, args = resolve_path(path)
-        if func == divide and args[-1] == 0:
-          raise ZeroDivisionError
-        body = func(*args)
+          raise NameError
+        elif path == '/':
+          body = "<html> \
+            <head> \
+            <title>wsgi-calculator instruction</title> \
+            </head> \
+            <body> \
+            <p>Please enter function and arguments for calculation into path</p> \
+            <p>e.g. localhost:10000/add/5/3</p> \
+            <br> \
+            <p>Available functions:</p> \
+            <p>add, subtract, multiply, divide</p> \
+            </body> \
+            </html>"
+        else:
+          func, args = resolve_path(path)
+          if func == divide and args[-1] == 0:
+            raise ZeroDivisionError
+          body = func(*args)
         status = "200 OK"
     except NameError:
         status = "404 Not Found"
@@ -132,5 +146,5 @@ if __name__ == '__main__':
     # TODO: Insert the same boilerplate wsgiref simple
     # server creation that you used in the book database.
     from wsgiref.simple_server import make_server
-    srv = make_server('localhost', 10000, application)
+    srv = make_server('localhost', 8080, application)
     srv.serve_forever()
